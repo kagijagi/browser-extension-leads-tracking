@@ -18,8 +18,28 @@ button {
     color: white;
     padding: 10px 20px;
     margin-top: 5px;
-    border: none;
+    border: 1px solid #5f9341;
     font-weight: bold;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#delete-btn {
+    background: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+#delete-btn:hover {
+    background: #c0392b;
+    border: 1px solid #c0392b;
+    
+}
+
+#input-btn:hover {
+    background: #4e7d34;
+    border: 1px solid #4e7d34;
 }
 
 ul {
