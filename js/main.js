@@ -1,3 +1,7 @@
+// diagnostic logs
+//console.log("chrome:", chrome);
+//console.log("chrome.storage:", chrome?.storage);
+
 // Initialize an empty array to store leads
 let myLeads = [];
 
@@ -10,14 +14,13 @@ const tabBtn = document.getElementById("tab-btn");
 
 const ulEl = document.getElementById("ul-el");
 
-// Retrieve leads from local storage if available
-const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
-
-// If leads exist in local storage, update myLeads and render them
-if (leadsFromLocalStorage) {
-    myLeads = leadsFromLocalStorage;
-    render(myLeads);
-}
+// Load leads from chrome.storage on popup open
+chrome.storage.local.get("myLeads", function (result) {
+    if (result.myLeads) {
+        myLeads = result.myLeads;
+        render(myLeads);
+    }
+});
 
 // Render the leads to the unordered list
 function render(leads) {
@@ -43,7 +46,7 @@ inputBtn.addEventListener("click", function() {
     myLeads.push(inputEl.value);
     inputEl.value = "";
 
-    localStorage.setItem("myLeads", JSON.stringify(myLeads));
+    chrome.storage.local.set({ myLeads });
     render(myLeads);
 })
 
@@ -56,7 +59,7 @@ tabBtn.addEventListener("click", function() {
             const activeTab = tabs[0];
             myLeads.push(activeTab.url);
 
-            localStorage.setItem("myLeads", JSON.stringify(myLeads));
+            chrome.storage.local.set({ myLeads });
             render(myLeads);
         }
     );
@@ -65,7 +68,7 @@ tabBtn.addEventListener("click", function() {
 // Add event listener to the button to delete all leads
 deleteBtn.addEventListener("dblclick", function() {
     myLeads = [];
-    localStorage.clear();
+    chrome.storage.local.remove("myLeads");
 
     render(myLeads);
 })

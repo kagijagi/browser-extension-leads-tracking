@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "version": "2.0",
+    "version": "2.2",
     "name": "Leads Tracker KagiJagi",
     "description": "Simple extension to save and manage leads (any links) you want to visit later.",
     "action": {
@@ -8,6 +8,7 @@
         "default_icon": "img/icon.png"
     },
     "permissions": [
-        "tabs"
+        "tabs",
+        "storage"
     ]
 }
